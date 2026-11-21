@@ -1,0 +1,357 @@
+from flask import Flask, render_template_string
+
+app = Flask(__name__)
+
+HTML = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Shrusti Dand | HR Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#fafafa;
+    color:#222;
+}
+
+header{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#6d28d9,#9333ea);
+    color:white;
+    text-align:center;
+    padding:40px;
+}
+
+.hero{
+    max-width:900px;
+}
+
+.hero img{
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    object-fit:cover;
+    border:6px solid white;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:3rem;
+    margin-bottom:15px;
+}
+
+.hero h2{
+    font-size:1.4rem;
+    margin-bottom:20px;
+}
+
+.hero p{
+    font-size:1.05rem;
+    line-height:1.7;
+}
+
+.btns{
+    margin-top:30px;
+}
+
+.btn{
+    display:inline-block;
+    padding:14px 24px;
+    background:white;
+    color:#6d28d9;
+    text-decoration:none;
+    border-radius:10px;
+    margin:10px;
+    font-weight:600;
+}
+
+section{
+    padding:80px 10%;
+}
+
+.section-title{
+    text-align:center;
+    color:#6d28d9;
+    margin-bottom:40px;
+    font-size:2.5rem;
+}
+
+.card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.timeline{
+    border-left:4px solid #6d28d9;
+    padding-left:30px;
+}
+
+.timeline-item{
+    margin-bottom:40px;
+}
+
+.badge{
+    display:inline-block;
+    background:#6d28d9;
+    color:white;
+    padding:10px 18px;
+    margin:8px;
+    border-radius:30px;
+}
+
+.contact{
+    background:#6d28d9;
+    color:white;
+    text-align:center;
+}
+
+.contact a{
+    color:white;
+    text-decoration:none;
+}
+
+footer{
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="hero">
+
+<img src="https://via.placeholder.com/220" alt="Profile">
+
+<h1>Shrusti Dand</h1>
+
+<h2>
+Aspiring HR Professional |
+Talent Acquisition & People Management Enthusiast
+</h2>
+
+<p>
+Results-oriented PGDM HR student with practical experience
+in recruitment, talent acquisition, onboarding, and human
+resource operations.
+</p>
+
+<div class="btns">
+<a class="btn" href="#">Download Resume</a>
+<a class="btn" href="#contact">Contact Me</a>
+</div>
+
+</div>
+</header>
+
+<section>
+<h2 class="section-title">About Me</h2>
+
+<div class="card">
+<p>
+Passionate HR professional pursuing PGDM in Human Resources.
+Experienced in recruitment, candidate screening, onboarding,
+HR operations, communication, leadership, and team management.
+Dedicated to building strong workplace relationships and creating
+effective talent acquisition strategies.
+</p>
+</div>
+
+</section>
+
+<section>
+<h2 class="section-title">Education</h2>
+
+<div class="timeline">
+
+<div class="timeline-item">
+<h3>PGDM in Human Resources</h3>
+<p>Sasmira's Business School, Mumbai</p>
+<p>June 2025 – April 2027</p>
+</div>
+
+<div class="timeline-item">
+<h3>BBA (Hons.) in Human Resources</h3>
+<p>S.K. Somaiya College, Mumbai</p>
+<p>August 2022 – April 2025</p>
+<p><strong>CGPI: 9.67</strong></p>
+</div>
+
+</div>
+</section>
+
+<section>
+<h2 class="section-title">Experience</h2>
+
+<div class="card-grid">
+
+<div class="card">
+<h3>HR Generalist Intern</h3>
+<p><b>Union Living</b></p>
+<p>May 2026 – July 2026</p>
+<ul>
+<li>Sourced candidates through LinkedIn</li>
+<li>Conducted candidate screening</li>
+<li>Interview coordination</li>
+<li>Onboarding support</li>
+<li>HR operations support</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>Recruitment Intern</h3>
+<p><b>R.K. Placements</b></p>
+<p>May 2024 – June 2024</p>
+<ul>
+<li>End-to-end recruitment support</li>
+<li>Candidate calling</li>
+<li>Interview scheduling</li>
+<li>Naukri.com coordination</li>
+</ul>
+</div>
+
+</div>
+</section>
+
+<section>
+<h2 class="section-title">Skills</h2>
+
+<div class="card-grid">
+
+<div class="card">Recruitment</div>
+<div class="card">Talent Acquisition</div>
+<div class="card">Candidate Screening</div>
+<div class="card">Interview Coordination</div>
+<div class="card">HR Operations</div>
+<div class="card">Communication</div>
+<div class="card">Leadership</div>
+<div class="card">Teamwork</div>
+<div class="card">Advanced Excel</div>
+
+</div>
+
+</section>
+
+<section>
+<h2 class="section-title">Certifications</h2>
+
+<div class="card-grid">
+<div class="card">Basics of HRM</div>
+<div class="card">Advanced Excel</div>
+<div class="card">NPTEL Intellectual Property Rights</div>
+</div>
+
+</section>
+
+<section>
+<h2 class="section-title">Achievements</h2>
+
+<div class="card-grid">
+
+<div class="card">
+🥇 1st Rank in PGDM Second Trimester
+</div>
+
+<div class="card">
+🥈 2nd Rank in BBA (Hons.) HR
+</div>
+
+<div class="card">
+🏆 HOD, Carrom Tournament – Youthon 2026
+</div>
+
+</div>
+
+</section>
+
+<section>
+<h2 class="section-title">Languages</h2>
+
+<center>
+<span class="badge">English</span>
+<span class="badge">Hindi</span>
+<span class="badge">Gujarati</span>
+<span class="badge">French (A2 Level)</span>
+</center>
+
+</section>
+
+<section id="contact" class="contact">
+
+<h2>Contact Me</h2>
+
+<br>
+
+<p>Email: shrustidand@gmail.com</p>
+
+<p>Phone: 7285857598</p>
+
+<p>Mumbai, Maharashtra, India</p>
+
+<br>
+
+<a href="mailto:shrustidand@gmail.com">
+Send Email
+</a>
+
+</section>
+
+<footer>
+
+<h3>Shrusti Dand</h3>
+
+<p>
+Aspiring HR Professional |
+Talent Acquisition & People Management Enthusiast
+</p>
+
+<br>
+
+<p>
+LinkedIn | Email | Resume
+</p>
+
+</footer>
+
+</body>
+</html>
+"""
+
+@app.route("/")
+def home():
+    return render_template_string(HTML)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
